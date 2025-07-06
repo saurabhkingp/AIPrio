@@ -3,7 +3,7 @@ REM Run the AI Test Prioritization main script.
 
 CALL c:/Users/saura/OneDrive/Desktop/open_source_venv/Scripts/activate.bat
 
-echo([32m==== Running AI Test Prioritization ====
+echo([32m==== Running AI Test Prioritization Script ====
 
 python -m src.main
 

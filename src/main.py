@@ -23,10 +23,14 @@ def main():
     prioritizer = TestCasePrioritizer()
     prioritizer.train(X, y)
 
+    # Prioritize test cases
     prioritized = prioritizer.prioritize(X, test_case_ids)
-    print("Prioritized test cases (from highest to lowest):")
-    for tc_id, priority in prioritized:
-        print(f"{tc_id}: Priority {priority}")
+    print("+------+--------------+--------------------+")
+    print(f"| {'Rank':^4} | {'Test-CaseID':<12} | {'Predicted-Priority':^19}|")
+    print("+------+--------------+--------------------+")
+    for idx, (tc_id, priority) in enumerate(prioritized, 1):
+        print(f"| {idx:^4} | {tc_id:<12} | {str(priority):^19}|")
+    print("+------+--------------+---------------------+\n")
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
