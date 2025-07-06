@@ -16,7 +16,6 @@ class TestTestCasePrioritizer(unittest.TestCase):
     def test_prioritize(self):
         prioritized = self.prioritizer.prioritize(self.X, self.test_case_ids)
         self.assertEqual(len(prioritized), len(self.test_case_ids))
-        # Check that priorities are sorted ascending (1=high)
         priorities = [p[1] for p in prioritized]
         self.assertEqual(priorities, sorted(priorities))
 

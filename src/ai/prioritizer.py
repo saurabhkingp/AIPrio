@@ -41,6 +41,5 @@ class TestCasePrioritizer:
         if not self.is_trained:
             raise Exception("Model not trained.")
         priorities = self.model.predict(X)
-        # Lower number = higher priority (1=high, 2=medium, 3=low)
         prioritized = sorted(zip(test_case_ids, priorities), key=lambda x: x[1])
         return prioritized

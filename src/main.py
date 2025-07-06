@@ -5,28 +5,31 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def main():
-    # Set up paths
+    """
+    Main entry point for the AI-powered test case prioritization pipeline.
+    - Loads a sample dataset of test cases.
+    - Trains a Random Forest model to predict test case priority.
+    - Prints the prioritized test cases from highest to lowest.
+    - Displays two plots:
+        1. Feature importance of the model, showing which features make a test case important.
+        2. The prioritized test cases with their predicted priority values.
+    """
     data_path = os.path.join(os.path.dirname(__file__), 'test_data.csv')
 
-    # Load data
     loader = DatasetLoader(data_path)
     X, y = loader.get_features_and_labels()
     test_case_ids = loader.get_test_cases()
 
-    # Train prioritizer
     prioritizer = TestCasePrioritizer()
     prioritizer.train(X, y)
 
-    # Prioritize test cases
     prioritized = prioritizer.prioritize(X, test_case_ids)
     print("Prioritized test cases (from highest to lowest):")
     for tc_id, priority in prioritized:
         print(f"{tc_id}: Priority {priority}")
 
-    # --- Combined Visualization: Feature Importance & Prioritized Test Cases ---
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
-    # Feature Importance
     feature_names = ["last_result", "duration", "recently_changed"]
     readable_funny_feature_names = [
         "Last Result (Pass/Fail)",
@@ -38,19 +41,18 @@ def main():
     ax1.set_xlabel('Feature Importance')
     ax1.set_title('Which Features Make a Test Case Important?')
 
-    # Prioritized Test Cases
     tc_ids_sorted = [tc_id for tc_id, _ in prioritized]
     priorities_sorted = [priority for _, priority in prioritized]
     bars = ax2.bar(tc_ids_sorted, priorities_sorted, color='orange')
     ax2.set_xlabel('Test Case ID')
     ax2.set_ylabel('Predicted Priority (1 = Highest)')
     ax2.set_title('Test Case Priority Order (Who Runs First?)')
-    ax2.invert_yaxis()  # So 1 (high) is at the top
+    ax2.invert_yaxis()  
 
     plt.tight_layout()
-    plt.show()  # Show non-blocking
-    #plt.pause(5)          # Keep the window open for 5 seconds
-    #plt.close()
+    plt.show(block=False)  
+    plt.pause(5)         
+    plt.close()
 
 if __name__ == "__main__":
     main()
