@@ -4,20 +4,24 @@ This project implements an AI-powered test case prioritization system designed t
 
 ## Project Structure
 
-```
-ai-test-prioritization
-├── src
-│   ├── main.py               # Entry point of the application
-│   ├── ai
-│   │   └── prioritizer.py    # Contains the Prioritizer class for test case prioritization
-│   ├── data
-│   │   └── dataset_loader.py  # Loads and preprocesses datasets
-│   ├── tests
-│   │   └── test_prioritizer.py # Unit tests for the Prioritizer class
-│   └── utils
-│       └── helpers.py        # Utility functions for logging and metrics calculation
-├── requirements.txt          # Project dependencies
-└── README.md                 # Project documentation
+```text
+📁 ai-test-prioritization/
+├── 📄 requirements.txt                 # Python dependencies
+├── 📄 run_ai_test_prioritization.bat   # Batch file for running the pipeline (Jenkins-ready)
+├── 📄 PROJECT_OVERVIEW.md              # Project overview and documentation
+├── 📄 README.md                        # Project readme
+├── 📁 src/                             # Source code root
+│   ├── 📄 __init__.py                  # Marks src as a package
+│   ├── 📄 main.py                      # Main entry point for the pipeline
+│   ├── 📄 test_data.csv                # (Optional) Sample test data
+│   ├── 📁 ai/                          # AI/ML logic
+│   │   └── 📄 prioritizer.py           # ML model for prioritization
+│   ├── 📁 data/                        # Data loading and preparation
+│   │   └── 📄 dataset_loader.py        # Loads and prepares data
+│   ├── 📁 utils/                       # Utility functions
+│   │   └── 📄 helpers.py               # Helper functions (e.g., data generation)
+│   └── 📁 tests/                       # Unit tests
+│       └── 📄 test_prioritizer.py      # Unit tests for prioritizer
 ```
 
 ## Setup Instructions
@@ -53,7 +57,3 @@ Test case prioritization is a technique used in software testing to arrange test
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
