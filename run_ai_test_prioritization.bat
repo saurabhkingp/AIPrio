@@ -9,7 +9,6 @@ echo([32m==== Running AI Test Prioritization ====
 
 python -m src.main
 
-REM Prints end message based on exit code
 if %ERRORLEVEL% EQU 0 (
     echo([32m==== AI Test Prioritization Completed Successfully ==== [0m
     exit /b 0
