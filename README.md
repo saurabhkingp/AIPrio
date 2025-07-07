@@ -54,6 +54,9 @@ python src/main.py
 
 Test case prioritization is a technique used in software testing to arrange test cases in a specific order based on certain criteria. This project utilizes AI to analyze historical test data and predict which test cases are most likely to uncover defects. By prioritizing these test cases, teams can ensure that critical tests are executed first, leading to faster feedback and improved software quality.
 
+## Impact
+![impact of aiprio](https://github.com/user-attachments/assets/56e2ec1b-ee1a-4d70-a74d-e783323cb818)
+
 ## Sample output
 ![Figure_1](https://github.com/user-attachments/assets/4759ecfb-a639-4b9e-a541-37686e7daf3b)
 
