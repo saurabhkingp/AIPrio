@@ -1,0 +1,10 @@
+test_login_failure
+test_resource_status
+test_raises_exception
+test_multiple_assertions
+test_login_success
+test_api_status_code
+test_slow_operation
+test_dict_keys
+test_positive_number
+test_list_equality

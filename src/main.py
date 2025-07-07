@@ -3,6 +3,7 @@ from src.ai.prioritizer import TestCasePrioritizer
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import subprocess
 
 def main():
     """
@@ -31,6 +32,35 @@ def main():
     for idx, (tc_id, priority) in enumerate(prioritized, 1):
         print(f"| {idx:^4} | {tc_id:<12} | {str(priority):^19}|")
     print("+------+--------------+---------------------+\n")
+
+    # Write prioritized test function names for pytest integration
+    # Map test_case_ids to actual test function names in test_sample_cases.py
+    test_func_map = {
+        'TC_1': 'test_login_success',
+        'TC_2': 'test_login_failure',
+        'TC_3': 'test_api_status_code',
+        'TC_4': 'test_positive_number',
+        'TC_5': 'test_resource_status',
+        'TC_6': 'test_slow_operation',
+        'TC_7': 'test_raises_exception',
+        'TC_8': 'test_list_equality',
+        'TC_9': 'test_dict_keys',
+        'TC_10': 'test_multiple_assertions',
+    }
+    with open(os.path.join(os.path.dirname(__file__), '..', 'prioritized_tests.txt'), "w") as f:
+        for tc_id, _ in prioritized:
+            func_name = test_func_map.get(tc_id, tc_id)
+            f.write(f"{func_name}\n")
+
+    # Run pytest and show output in console
+    print("\nRunning pytest in prioritized order...\n" + "="*40)
+    result = subprocess.run([
+        'pytest',
+        os.path.join(os.path.dirname(__file__), 'tests'),
+        '--maxfail=3',
+        '--disable-warnings',
+        '-v'
+    ], capture_output=False)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
