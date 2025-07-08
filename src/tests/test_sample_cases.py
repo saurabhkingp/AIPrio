@@ -31,6 +31,8 @@ def test_positive_number(input_val, expected):
 def resource():
     return {"status": "ready"}
 
+#
+
 def test_resource_status(resource):
     assert resource["status"] == "ready"
 
