@@ -11,8 +11,11 @@ def test_login_failure():
 
 # 3. API response code check (simulated)
 def test_api_status_code():
+    start_time = time.time()
     response_code = 200  # Simulated
+    elapsed_time = time.time() - start_time
     assert response_code == 200
+    print(f"API call took {elapsed_time:.6f} seconds")
 
 # 4. Parameterized test for input validation
 @pytest.mark.parametrize("input_val,expected", [
