@@ -2,7 +2,7 @@ import pytest
 import time
 
 # 1. Simple pass test
-def test_login_successs():
+def test_login_success():
     assert "user" == "user"
 
 # 2. Simple fail test

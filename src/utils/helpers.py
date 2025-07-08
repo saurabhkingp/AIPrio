@@ -1,5 +1,9 @@
 import pandas as pd
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.test_metadata_updater import extract_function_names_map
+from utils.variables import *
 
 def log_message(message):
     print(f"[LOG] {message}")
@@ -23,8 +27,10 @@ def generate_sample_test_data(filepath):
     """
     Generates a sample CSV dataset for test case prioritization.
     """
+    testcases_names=extract_function_names_map(TEST_SAMPLE_CASES)
+    print(testcases_names)
     data = {
-        'test_case_id': [f'TC_{i}' for i in range(1, 11)],
+        'test_case_id': [f'{i}' for i in testcases_names.values()],
         'last_result': [1, 0, 1, 1, 0, 1, 0, 1, 1, 0],  # 1=pass, 0=fail
         'duration': [12, 30, 15, 10, 25, 14, 28, 11, 13, 27],
         'recently_changed': [1, 1, 0, 0, 1, 0, 1, 0, 0, 1],

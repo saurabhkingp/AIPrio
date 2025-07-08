@@ -1,9 +1,12 @@
 from src.data.dataset_loader import DatasetLoader
 from src.ai.prioritizer import TestCasePrioritizer
+from src.utils.test_metadata_updater import update_recently_changed, extract_function_names_map
+from src.utils.variables import *
 import os
 import matplotlib.pyplot as plt
 import numpy as np
 import subprocess
+import ast
 
 def main():
     """
@@ -15,7 +18,15 @@ def main():
         1. Feature importance of the model, showing which features make a test case important.
         2. The prioritized test cases with their predicted priority values.
     """
-    data_path = os.path.join(os.path.dirname(__file__), 'test_data.csv')
+    
+
+    # Update the 'recently_changed' column in the dataset
+    update_recently_changed(
+        csv_path=TEST_DATA_CSV,
+        test_file=TEST_SAMPLE_CASES,
+        since_commit=SINCE_COMMIT
+    )
+    data_path = TEST_DATA_CSV
 
     loader = DatasetLoader(data_path)
     X, y = loader.get_features_and_labels()
@@ -35,28 +46,17 @@ def main():
 
     # Write prioritized test function names for pytest integration
     # Map test_case_ids to actual test function names in test_sample_cases.py
-    test_func_map = {
-        'TC_1': 'test_login_success',
-        'TC_2': 'test_login_failure',
-        'TC_3': 'test_api_status_code',
-        'TC_4': 'test_positive_number',
-        'TC_5': 'test_resource_status',
-        'TC_6': 'test_slow_operation',
-        'TC_7': 'test_raises_exception',
-        'TC_8': 'test_list_equality',
-        'TC_9': 'test_dict_keys',
-        'TC_10': 'test_multiple_assertions',
-    }
-    with open(os.path.join(os.path.dirname(__file__), '..', 'prioritized_tests.txt'), "w") as f:
+    func_names_map = extract_function_names_map(TEST_SAMPLE_CASES)
+    with open(PRIORITIZED_TESTS_TXT, "w") as f:
         for tc_id, _ in prioritized:
-            func_name = test_func_map.get(tc_id, tc_id)
+            func_name = func_names_map.get(tc_id, tc_id)
             f.write(f"{func_name}\n")
 
     # Run pytest and show output in console
     print("\nRunning pytest in prioritized order...\n" + "="*40)
     result = subprocess.run([
         'pytest',
-        os.path.join(os.path.dirname(__file__), 'tests'),
+        TESTS_DIR,
         '--maxfail=3',
         '--disable-warnings',
         '-v'
