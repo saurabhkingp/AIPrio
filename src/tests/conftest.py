@@ -1,5 +1,41 @@
 import pytest
 import os
+import time
+import json
+
+durations = {}
+results = {}
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_call(item):
+    start = time.perf_counter()
+    outcome = yield
+    end = time.perf_counter()
+    durations[item.name] = round(end - start, 4)
+    # Determine pass/fail from outcome
+    rep = outcome.get_result()
+    # If the test failed, rep.failed is True
+    results[item.name] = 1 if getattr(rep, 'failed', False) else 0
+
+
+def pytest_sessionfinish(session, exitstatus):
+    # Save durations and results to a single JSON file at the end of the test session
+    out_path = os.path.join(os.path.dirname(__file__), "..", "..", "test_durations.json")
+    # Load previous data if exists
+    data = {}
+    if os.path.exists(out_path):
+        with open(out_path, "r") as f:
+            try:
+                data = json.load(f)
+            except Exception:
+                data = {}
+    # Update with new durations and results
+    for k in durations:
+        # Store as [duration, result] for easier CSV update
+        data[k] = [durations[k], results.get(k, None)]
+    # Also keep any other keys (e.g., parameterized tests) from previous runs
+    with open(out_path, "w") as f:
+        json.dump(data, f, indent=2)
 
 def pytest_collection_modifyitems(session, config, items):
     prioritized_file = os.path.abspath(

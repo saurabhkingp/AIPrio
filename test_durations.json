@@ -1,0 +1,54 @@
+{
+  "test_login_failure": [
+    0.0004,
+    null
+  ],
+  "test_resource_status": [
+    0.0002,
+    0
+  ],
+  "test_raises_exception": [
+    0.0005,
+    0
+  ],
+  "test_multiple_assertions": [
+    0.0002,
+    0
+  ],
+  "test_login_success": [
+    1.0086,
+    0
+  ],
+  "test_api_status_code": [
+    0.0005,
+    0
+  ],
+  "test_slow_operation": [
+    2.2103,
+    0
+  ],
+  "test_dict_keys": [
+    0.0002,
+    0
+  ],
+  "test_positive_number[5-True]": [
+    0.0002,
+    0
+  ],
+  "test_positive_number[0-False]": [
+    0.0002,
+    0
+  ],
+  "test_positive_number[-1-False]": [
+    0.0002,
+    0
+  ],
+  "test_list_equality": [
+    0.0002,
+    0
+  ],
+  "test_prioritize": [
+    0.0701,
+    0
+  ]
+}

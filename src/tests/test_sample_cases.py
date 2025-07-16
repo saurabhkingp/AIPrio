@@ -3,6 +3,7 @@ import time
 
 # 1. Simple pass test
 def test_login_success():
+    time.sleep(1) 
     assert "user" == "user"
 
 # 2. Simple fail test
@@ -38,7 +39,7 @@ def test_resource_status(resource):
 
 # 6. Test with simulated execution time
 def test_slow_operation():
-    time.sleep(0.2)
+    time.sleep(2.2)
     assert True
 
 # 7. Test with exception handling
